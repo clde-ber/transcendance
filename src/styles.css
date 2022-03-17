@@ -1,0 +1,31 @@
+/* styles.css */
+
+.title {
+	color: #FFA07A;
+	background-color: #778899;
+	font-family: 'Open Sans Condensed', sans-serif;
+	margin: #B0C4DE;
+}
+
+.Splash {
+	color:#6495ED;
+	font-family: 'Ubuntu Condensed', sans-serif;
+	text-align: center;
+}
+
+.button {
+    background: #FFA07A;
+    border: 0px solid #6495ED;
+    border-radius: 0px;
+    color: #778899;
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+
+/* #FFA07A
+#6495ED
+#B0C4DE
+#778899 */
