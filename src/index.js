@@ -29,10 +29,12 @@ var root = document.body;
 // }
 var Hello = {
     view() {
-        return (0, mithril_1.default)("main", (0, mithril_1.default)("img[src='assets/entry.jpg'][alt='transcendance']", { class: "image" }), (0, mithril_1.default)("div", { class: "block" }, [(0, mithril_1.default)("h1", { class: "title" }, "Transcendance"), (0, mithril_1.default)("div", { class: "buttons" }, [(0, mithril_1.default)("button.button[type=button]", { class: "signIn" }, "Sign-in"), (0, mithril_1.default)("button.button[type=button]", { class: "join" }, "Join")])])
+        return (0, mithril_1.default)("main", (0, mithril_1.default)("div", { class: "blocks" }, [
+            (0, mithril_1.default)("div", { class: "block1" }, [(0, mithril_1.default)("img[src='assets/entry.jpg'][alt='transcendance']", { class: "image" })]),
+            (0, mithril_1.default)("div", { class: "block2" }, [(0, mithril_1.default)("h1", { class: "title" }, "Transcendance"), (0, mithril_1.default)("div", { class: "buttons" }, [(0, mithril_1.default)("button.button[type=button]", { class: "signIn" }, "Sign-in"), (0, mithril_1.default)("button.button[type=button]", { class: "join" }, "Join")])])
+        ]));
         //m("button.button[type=button]", {class: "signIn"}, "Sign-in"),
         //m("button.button[type=button]", {class: "join"}, "Join"),
-        );
     }
 };
 mithril_1.default.mount(root, Hello);

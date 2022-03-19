@@ -30,11 +30,11 @@ var root = document.body
 var Hello = {
     view() {
         return m("main",
-            m("img[src='assets/entry.jpg'][alt='transcendance']", {class: "image"}),
-            m("div", {class:"block"}, [m("h1", {class: "title"}, "Transcendance"), m("button.button[type=button]", {class: "signIn"}, "Sign-in"), m("button.button[type=button]", {class: "join"}, "Join")])
+            m("div", {class: "blocks"}, [
+            m("div", {class:"block1"}, [m("img[src='assets/entry.jpg'][alt='transcendance']", {class: "image"})]),
+            m("div", {class:"block2"}, [m("h1", {class: "title"}, "Transcendance"), m("div", {class: "buttons"}, [m("button.button[type=button]", {class: "signIn"}, "Sign-in"), m("button.button[type=button]", {class: "join"}, "Join")])])]))
             //m("button.button[type=button]", {class: "signIn"}, "Sign-in"),
             //m("button.button[type=button]", {class: "join"}, "Join"),
-        )
     }
 }
 
