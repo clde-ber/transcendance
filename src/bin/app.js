@@ -1,269 +1,4 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-},{}],2:[function(require,module,exports){
-(function (setImmediate,clearImmediate){(function (){
-var nextTick = require('process/browser.js').nextTick;
-var apply = Function.prototype.apply;
-var slice = Array.prototype.slice;
-var immediateIds = {};
-var nextImmediateId = 0;
-
-// DOM APIs, for completeness
-
-exports.setTimeout = function() {
-  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
-};
-exports.setInterval = function() {
-  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
-};
-exports.clearTimeout =
-exports.clearInterval = function(timeout) { timeout.close(); };
-
-function Timeout(id, clearFn) {
-  this._id = id;
-  this._clearFn = clearFn;
-}
-Timeout.prototype.unref = Timeout.prototype.ref = function() {};
-Timeout.prototype.close = function() {
-  this._clearFn.call(window, this._id);
-};
-
-// Does not start the time, just sets up the members needed.
-exports.enroll = function(item, msecs) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = msecs;
-};
-
-exports.unenroll = function(item) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = -1;
-};
-
-exports._unrefActive = exports.active = function(item) {
-  clearTimeout(item._idleTimeoutId);
-
-  var msecs = item._idleTimeout;
-  if (msecs >= 0) {
-    item._idleTimeoutId = setTimeout(function onTimeout() {
-      if (item._onTimeout)
-        item._onTimeout();
-    }, msecs);
-  }
-};
-
-// That's not how node.js implements it but the exposed api is the same.
-exports.setImmediate = typeof setImmediate === "function" ? setImmediate : function(fn) {
-  var id = nextImmediateId++;
-  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
-
-  immediateIds[id] = true;
-
-  nextTick(function onNextTick() {
-    if (immediateIds[id]) {
-      // fn.call() is faster so we optimize for the common use-case
-      // @see http://jsperf.com/call-apply-segu
-      if (args) {
-        fn.apply(null, args);
-      } else {
-        fn.call(null);
-      }
-      // Prevent ids from leaking
-      exports.clearImmediate(id);
-    }
-  });
-
-  return id;
-};
-
-exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
-  delete immediateIds[id];
-};
-}).call(this)}).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":1,"timers":2}],3:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -315,7 +50,7 @@ module.exports = function(render, schedule, console) {
 	return {mount: mount, redraw: redraw}
 }
 
-},{"../render/vnode":22}],4:[function(require,module,exports){
+},{"../render/vnode":20}],2:[function(require,module,exports){
 (function (setImmediate){(function (){
 "use strict"
 
@@ -581,7 +316,7 @@ module.exports = function($window, mountRedraw) {
 }
 
 }).call(this)}).call(this,require("timers").setImmediate)
-},{"../pathname/assign":8,"../pathname/build":9,"../pathname/compileTemplate":10,"../pathname/parse":11,"../promise/promise":13,"../render/hyperscript":18,"../render/vnode":22,"timers":2}],5:[function(require,module,exports){
+},{"../pathname/assign":6,"../pathname/build":7,"../pathname/compileTemplate":8,"../pathname/parse":9,"../promise/promise":11,"../render/hyperscript":16,"../render/vnode":20,"timers":26}],3:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./render/hyperscript")
@@ -591,7 +326,7 @@ hyperscript.fragment = require("./render/fragment")
 
 module.exports = hyperscript
 
-},{"./render/fragment":17,"./render/hyperscript":18,"./render/trust":21}],6:[function(require,module,exports){
+},{"./render/fragment":15,"./render/hyperscript":16,"./render/trust":19}],4:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./hyperscript")
@@ -617,21 +352,21 @@ m.PromisePolyfill = require("./promise/polyfill")
 
 module.exports = m
 
-},{"./hyperscript":5,"./mount-redraw":7,"./pathname/build":9,"./pathname/parse":11,"./promise/polyfill":12,"./querystring/build":14,"./querystring/parse":15,"./render":16,"./render/vnode":22,"./request":23,"./route":25}],7:[function(require,module,exports){
+},{"./hyperscript":3,"./mount-redraw":5,"./pathname/build":7,"./pathname/parse":9,"./promise/polyfill":10,"./querystring/build":12,"./querystring/parse":13,"./render":14,"./render/vnode":20,"./request":21,"./route":23}],5:[function(require,module,exports){
 "use strict"
 
 var render = require("./render")
 
 module.exports = require("./api/mount-redraw")(render, requestAnimationFrame, console)
 
-},{"./api/mount-redraw":3,"./render":16}],8:[function(require,module,exports){
+},{"./api/mount-redraw":1,"./render":14}],6:[function(require,module,exports){
 "use strict"
 
 module.exports = Object.assign || function(target, source) {
 	if(source) Object.keys(source).forEach(function(key) { target[key] = source[key] })
 }
 
-},{}],9:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict"
 
 var buildQueryString = require("../querystring/build")
@@ -676,7 +411,7 @@ module.exports = function(template, params) {
 	return result
 }
 
-},{"../querystring/build":14,"./assign":8}],10:[function(require,module,exports){
+},{"../querystring/build":12,"./assign":6}],8:[function(require,module,exports){
 "use strict"
 
 var parsePathname = require("./parse")
@@ -721,7 +456,7 @@ module.exports = function(template) {
 	}
 }
 
-},{"./parse":11}],11:[function(require,module,exports){
+},{"./parse":9}],9:[function(require,module,exports){
 "use strict"
 
 var parseQueryString = require("../querystring/parse")
@@ -747,7 +482,7 @@ module.exports = function(url) {
 	}
 }
 
-},{"../querystring/parse":15}],12:[function(require,module,exports){
+},{"../querystring/parse":13}],10:[function(require,module,exports){
 (function (setImmediate){(function (){
 "use strict"
 /** @constructor */
@@ -863,7 +598,7 @@ PromisePolyfill.race = function(list) {
 module.exports = PromisePolyfill
 
 }).call(this)}).call(this,require("timers").setImmediate)
-},{"timers":2}],13:[function(require,module,exports){
+},{"timers":26}],11:[function(require,module,exports){
 (function (global){(function (){
 "use strict"
 
@@ -888,7 +623,7 @@ if (typeof window !== "undefined") {
 }
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./polyfill":12}],14:[function(require,module,exports){
+},{"./polyfill":10}],12:[function(require,module,exports){
 "use strict"
 
 module.exports = function(object) {
@@ -916,7 +651,7 @@ module.exports = function(object) {
 	}
 }
 
-},{}],15:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 "use strict"
 
 module.exports = function(string) {
@@ -961,12 +696,12 @@ module.exports = function(string) {
 	return data
 }
 
-},{}],16:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 "use strict"
 
 module.exports = require("./render/render")(window)
 
-},{"./render/render":20}],17:[function(require,module,exports){
+},{"./render/render":18}],15:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -980,7 +715,7 @@ module.exports = function() {
 	return vnode
 }
 
-},{"../render/vnode":22,"./hyperscriptVnode":19}],18:[function(require,module,exports){
+},{"../render/vnode":20,"./hyperscriptVnode":17}],16:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -1083,7 +818,7 @@ function hyperscript(selector) {
 
 module.exports = hyperscript
 
-},{"../render/vnode":22,"./hyperscriptVnode":19}],19:[function(require,module,exports){
+},{"../render/vnode":20,"./hyperscriptVnode":17}],17:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -1138,7 +873,7 @@ module.exports = function() {
 	return Vnode("", attrs.key, attrs, children)
 }
 
-},{"../render/vnode":22}],20:[function(require,module,exports){
+},{"../render/vnode":20}],18:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -2113,7 +1848,7 @@ module.exports = function($window) {
 	}
 }
 
-},{"../render/vnode":22}],21:[function(require,module,exports){
+},{"../render/vnode":20}],19:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -2123,7 +1858,7 @@ module.exports = function(html) {
 	return Vnode("<", undefined, undefined, html, undefined, undefined)
 }
 
-},{"../render/vnode":22}],22:[function(require,module,exports){
+},{"../render/vnode":20}],20:[function(require,module,exports){
 "use strict"
 
 function Vnode(tag, key, attrs, children, text, dom) {
@@ -2156,7 +1891,7 @@ Vnode.normalizeChildren = function(input) {
 
 module.exports = Vnode
 
-},{}],23:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 "use strict"
 
 var PromisePolyfill = require("./promise/promise")
@@ -2164,7 +1899,7 @@ var mountRedraw = require("./mount-redraw")
 
 module.exports = require("./request/request")(window, PromisePolyfill, mountRedraw.redraw)
 
-},{"./mount-redraw":7,"./promise/promise":13,"./request/request":24}],24:[function(require,module,exports){
+},{"./mount-redraw":5,"./promise/promise":11,"./request/request":22}],22:[function(require,module,exports){
 "use strict"
 
 var buildPathname = require("../pathname/build")
@@ -2360,14 +2095,14 @@ module.exports = function($window, Promise, oncompletion) {
 	}
 }
 
-},{"../pathname/build":9}],25:[function(require,module,exports){
+},{"../pathname/build":7}],23:[function(require,module,exports){
 "use strict"
 
 var mountRedraw = require("./mount-redraw")
 
 module.exports = require("./api/router")(window, mountRedraw)
 
-},{"./api/router":4,"./mount-redraw":7}],26:[function(require,module,exports){
+},{"./api/router":2,"./mount-redraw":5}],24:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -2377,12 +2112,32 @@ const mithril_1 = __importDefault(require("mithril"));
 var root = document.body;
 // Try it out! This is just to
 // help get things started.
+// EXAMPLE: component composition
+// class signIn {
+//     view() {
+//         return m("button", `Sign-in`)
+//     }
+// }
+// class join {
+//     view() {
+//         return m("button", `Join`)
+//     }
+// }
+// var Hello = {
+//     view: function() {
+//         return m("div", [
+//             m("h1", {"class":"title"}, "Transcendance"),
+//             m("button", {class: "signIn", type:"button"}, " Sign in "),
+//             m("button", {class: "join", type:"button"}, " Join ")
+//         ])
+//     }
+// }
 var Hello = {
-    view: function () {
-        return (0, mithril_1.default)("main", [
-            (0, mithril_1.default)("h1", { class: "title" }, "Transcendance"),
-            (0, mithril_1.default)("button.button[type=button]", "Sign-in"),
-        ]);
+    view() {
+        return (0, mithril_1.default)("main", (0, mithril_1.default)("img[src='assets/entry.jpg'][alt='transcendance']", { class: "image" }), (0, mithril_1.default)("div", { class: "block" }, [(0, mithril_1.default)("h1", { class: "title" }, "Transcendance"), (0, mithril_1.default)("div", { class: "buttons" }, [(0, mithril_1.default)("button.button[type=button]", { class: "signIn" }, "Sign-in"), (0, mithril_1.default)("button.button[type=button]", { class: "join" }, "Join")])])
+        //m("button.button[type=button]", {class: "signIn"}, "Sign-in"),
+        //m("button.button[type=button]", {class: "join"}, "Join"),
+        );
     }
 };
 mithril_1.default.mount(root, Hello);
@@ -2395,5 +2150,281 @@ mithril_1.default.route(root, "/splash", {
     "/splash": Splash,
     "/hello": Hello,
 });
+/*
+var Hello = {
+    view: function() {
+        return m("main", [
+            m("h1", {class: "title"}, "Transcendance"),
+            m("button.sign[type=button]", "Sign-in"),
+            m("button.button[type=button]", "Join")
+        ])
+    }
+}
+*/ 
 
-},{"mithril":6}]},{},[26]);
+},{"mithril":4}],25:[function(require,module,exports){
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}],26:[function(require,module,exports){
+(function (setImmediate,clearImmediate){(function (){
+var nextTick = require('process/browser.js').nextTick;
+var apply = Function.prototype.apply;
+var slice = Array.prototype.slice;
+var immediateIds = {};
+var nextImmediateId = 0;
+
+// DOM APIs, for completeness
+
+exports.setTimeout = function() {
+  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+};
+exports.setInterval = function() {
+  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+};
+exports.clearTimeout =
+exports.clearInterval = function(timeout) { timeout.close(); };
+
+function Timeout(id, clearFn) {
+  this._id = id;
+  this._clearFn = clearFn;
+}
+Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+Timeout.prototype.close = function() {
+  this._clearFn.call(window, this._id);
+};
+
+// Does not start the time, just sets up the members needed.
+exports.enroll = function(item, msecs) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = msecs;
+};
+
+exports.unenroll = function(item) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = -1;
+};
+
+exports._unrefActive = exports.active = function(item) {
+  clearTimeout(item._idleTimeoutId);
+
+  var msecs = item._idleTimeout;
+  if (msecs >= 0) {
+    item._idleTimeoutId = setTimeout(function onTimeout() {
+      if (item._onTimeout)
+        item._onTimeout();
+    }, msecs);
+  }
+};
+
+// That's not how node.js implements it but the exposed api is the same.
+exports.setImmediate = typeof setImmediate === "function" ? setImmediate : function(fn) {
+  var id = nextImmediateId++;
+  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
+
+  immediateIds[id] = true;
+
+  nextTick(function onNextTick() {
+    if (immediateIds[id]) {
+      // fn.call() is faster so we optimize for the common use-case
+      // @see http://jsperf.com/call-apply-segu
+      if (args) {
+        fn.apply(null, args);
+      } else {
+        fn.call(null);
+      }
+      // Prevent ids from leaking
+      exports.clearImmediate(id);
+    }
+  });
+
+  return id;
+};
+
+exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
+  delete immediateIds[id];
+};
+}).call(this)}).call(this,require("timers").setImmediate,require("timers").clearImmediate)
+},{"process/browser.js":25,"timers":26}]},{},[24]);

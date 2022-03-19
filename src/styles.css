@@ -1,30 +1,83 @@
 /* styles.css */
 
-.title {
-	color: #FFA07A;
-	background-color: #778899;
+.block{
+    background-color: #B0C4DE;
+    position: absolute;
+    top: 0vh;
+    left: 50vw;
+    width: 50vw;
+    height: 100vh;
+}
+
+.title{
+    text-align: center;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+	color: #ffffff;
 	font-family: 'Open Sans Condensed', sans-serif;
-	margin: #B0C4DE;
 }
 
-.Splash {
-	color:#6495ED;
-	font-family: 'Ubuntu Condensed', sans-serif;
-	text-align: center;
+.buttons{
+    text-align: center;
+    align-content: center;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    align-items: center;
 }
 
-.button {
+.signIn{
+    align-content: center;
     background: #FFA07A;
-    border: 0px solid #6495ED;
+    border: 2px solid #ffffff;
     border-radius: 0px;
-    color: #778899;
+    border-color: #B0C4DE;
+    color: #ffffff;
     display: inline-block;
     margin: 0 0 10px;
     padding: 10px 15px;
     text-decoration: none;
 }
 
+.signIn:hover{
+    background: #778899;
+    color: #ffffff;
+}
 
+.join{
+    align-content: center;
+    background: #FFA07A;
+    border: 2px solid #ffffff;
+    border-radius: 0px;
+    border-color: #B0C4DE;
+    color: #ffffff;
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+.join:hover{
+    background: #778899;
+    color: #ffffff;
+}
+
+.image{
+    position: absolute;
+    top: 0vh;
+    left: 0vw;
+    width: auto;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
 /* #FFA07A
 #6495ED
 #B0C4DE
