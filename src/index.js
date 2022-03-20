@@ -35,8 +35,16 @@ var root = document.body;
 // }
 var Subscription = {
     view() {
-        return (0, mithril_1.default)("h1", { class: "contact" }, "Contact"),
-            (0, mithril_1.default)("div", { class: "logIn" }, [(0, mithril_1.default)("div", { class: "firstName" }, "first name"), (0, mithril_1.default)("div", { class: "lastName" }, "last name"), (0, mithril_1.default)("div", { class: "mobile" }, "mobile"), (0, mithril_1.default)("div", { class: "mail" }, "mail"), (0, mithril_1.default)("div", { class: "address" }, "address"), (0, mithril_1.default)("div", { class: "zipCode" }, "zipcode"), (0, mithril_1.default)("div", { class: "city" }, "city"), (0, mithril_1.default)("div", { class: "country" }, "county")]);
+        return (0, mithril_1.default)("div", { class: "subscriptionBlocks" }, [(0, mithril_1.default)("img[src='assets/subscription.jpg'][alt='subscribe']", { class: "subscriptionImg" }), [(0, mithril_1.default)("div", { class: "contactDiv" }, [(0, mithril_1.default)("h1", { class: "contact" }, "Contact"),
+                    [(0, mithril_1.default)("div", { class: "firstNameClass" }, [(0, mithril_1.default)("label.label", { class: "firstName" }, "First name"), (0, mithril_1.default)("input.input[placeholder=First name]", { class: "inputFirstName" })]),
+                        (0, mithril_1.default)("div", { class: "lastNameClass" }, [(0, mithril_1.default)("label.label", { class: "lastName" }, "Last name"), (0, mithril_1.default)("input.input[placeholder=Last name]", { class: "inputLastName" })]),
+                        (0, mithril_1.default)("div", { class: "mobileClass" }, [(0, mithril_1.default)("label.label", { class: "mobile" }, "Mobile"), (0, mithril_1.default)("input.input[placeholder=Mobile]", { class: "inputMobile" })]),
+                        (0, mithril_1.default)("div", { class: "mailClass" }, [(0, mithril_1.default)("label.label", { class: "mail" }, "Mail"), (0, mithril_1.default)("input.input[placeholder=Mail]", { class: "inputMail" })]),
+                        (0, mithril_1.default)("div", { class: "addressClass" }, [(0, mithril_1.default)("label.label", { class: "address" }, "Address"), (0, mithril_1.default)("input.input[placeholder=Adress]", { class: "inputAddress" })]),
+                        (0, mithril_1.default)("div", { class: "zipcodeClass" }, [(0, mithril_1.default)("label.label", { class: "zipcode" }, "Zipcode"), (0, mithril_1.default)("input.input[placeholder=Zipcode]", { class: "inputZipcode" })]),
+                        (0, mithril_1.default)("div", { class: "cityClass" }, [(0, mithril_1.default)("label.label", { class: "city" }, "city"), (0, mithril_1.default)("input.input[placeholder=City]", { class: "inputCity" })]),
+                        (0, mithril_1.default)("div", { class: "countryClass" }, [(0, mithril_1.default)("label.label", { class: "country" }, "Country"), (0, mithril_1.default)("input.input[placeholder=Country]", { class: "inputCountry" })]),
+                        (0, mithril_1.default)("div", { class: "saveClass" }, (0, mithril_1.default)("button.button[type=button]", { class: "buttonSave" }, "Save"))]])]]);
     }
 };
 var Login = {

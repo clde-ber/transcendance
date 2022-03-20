@@ -100,8 +100,16 @@ var root = document.body
 
 var Subscription = {
     view() {
-            return m("h1", {class: "contact"}, "Contact"),
-            m("div", {class: "logIn"}, [m("div", {class: "firstName"}, "first name"), m("div", {class: "lastName"}, "last name"), m("div", {class: "mobile"}, "mobile"), m("div", {class: "mail"}, "mail"), m("div", {class: "address"}, "address"), m("div", {class: "zipCode"}, "zipcode"), m("div", {class: "city"}, "city"), m("div", {class: "country"}, "county")])
+            return m("div", {class: "subscriptionBlocks"}, [m("img[src='assets/subscription.jpg'][alt='subscribe']", {class: "subscriptionImg"}), [m("div", {class: "contactDiv"}, [m("h1", {class: "contact"}, "Contact"),
+            [m("div", {class: "firstNameClass"}, [m("label.label", {class: "firstName"}, "First name"), m("input.input[placeholder=First name]", {class: "inputFirstName"})]),
+            m("div", {class: "lastNameClass"}, [m("label.label", {class: "lastName"}, "Last name"), m("input.input[placeholder=Last name]", {class: "inputLastName"})]),
+            m("div", {class: "mobileClass"}, [m("label.label", {class: "mobile"}, "Mobile"), m("input.input[placeholder=Mobile]", {class: "inputMobile"})]),
+            m("div", {class: "mailClass"}, [m("label.label", {class: "mail"}, "Mail"), m("input.input[placeholder=Mail]", {class: "inputMail"})]),
+            m("div", {class: "addressClass"}, [m("label.label", {class: "address"}, "Address"), m("input.input[placeholder=Adress]", {class: "inputAddress"})]),
+            m("div", {class: "zipcodeClass"}, [m("label.label", {class: "zipcode"}, "Zipcode"), m("input.input[placeholder=Zipcode]", {class: "inputZipcode"})]),
+            m("div", {class: "cityClass"}, [m("label.label", {class: "city"}, "city"), m("input.input[placeholder=City]", {class: "inputCity"})]),
+            m("div", {class: "countryClass"}, [m("label.label", {class: "country"}, "Country"), m("input.input[placeholder=Country]", {class: "inputCountry"})]),
+            m("div", {class: "saveClass"}, m("button.button[type=button]", {class: "buttonSave"}, "Save"))]])]])
     }
 }
 

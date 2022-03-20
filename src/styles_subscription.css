@@ -1,0 +1,75 @@
+/* styles.css */
+
+.contactDiv{
+    background: #FFA07A;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    height: 100vh;
+    width: auto;
+}
+
+.firstName, .lastName, .mobile, .mail, .address, .zipcode, .city, .country, .buttonSave, .contact{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+
+.buttonSave{
+    border: 0px;
+    background:  #B0C4DE;
+    padding : 1vh 1vw;
+}
+
+.firstNameClass, .lastNameClass, .mobileClass, .mailClass, .addressClass, .zipcodeClass, .cityClass, .countryClass, .saveClass, .contact{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    padding: 1vh 1vw;
+}
+
+.inputFirstName, .inputLastName, .inputMobile, .inputMail, .inputAddress, .inputZipcode, .inputCity, .inputCountry{
+    color:#ffffff;
+    border: 0px;
+}
+
+.subscriptionImage{
+    height: 100vh;
+    width: auto;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.subscriptionBlocks{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    align-content: center;
+    flex-grow: 1;
+    height: 100vh;
+    width: auto;
+}
+
+.contact{
+    justify-content: center;
+    align-content: center;
+}
