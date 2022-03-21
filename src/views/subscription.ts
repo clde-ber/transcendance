@@ -4,10 +4,10 @@ var root = document.body
 
 export let Subscription = {
     view() {
-            return m("div", {class: "subscriptionBlocks"}, [m("img[src='assets/subscription.jpg'][alt='subscribe']", {class: "subscriptionImg"}), [m("div", {class: "contactDiv"}, [m("h1", {class: "contact"}, "Contact"),
-            [m("div", {class: "usernameClass"}, [m("label.label", {class: "username"}, "Username"), m("input.input[placeholder=Username]", {class: "inputUsername"})]),
-            m("div", {class: "statusClass"}, [m("label.label", {class: "status"}, "Status"), m("input.input[placeholder=Status]", {class: "inputStatus"})]),
-            m("div", {class: "saveClass"}, m("button.button[type=button]", {class: "buttonSave"}, "Save"))]])]])
+            return m("div", {class: "subscriptionBlocks"}, [m("img[src='assets/subscription.jpg'][alt='subscribe']", {class: "subscriptionImg"}), [m("div", {class: "subscriptionDiv"}, [m("h1", {class: "idsSubscribe"}, "Create your account"),
+            [m("div", {class: "usernameSubscribeClass"}, [m("label.label", {class: "usernameSubscribe"}, "Username"), m("input.input[placeholder=Username]", {class: "inputUsernameSubscribe"})]),
+            m("div", {class: "statusSubscribeClass"}, [m("label.label", {class: "statusSubscribe"}, "Status"), m("input.input[placeholder=Status]", {class: "inputStatusSubscribe"})]),
+            m("div", {class: "saveSubscribeClass"}, m("button.button[type=button]", {class: "buttonSaveSubscribe"}, "Save"))]])]])
     }
 }
 

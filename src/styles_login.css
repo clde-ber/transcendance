@@ -1,0 +1,74 @@
+.loginDiv{
+    background: #FFA07A;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    height: 100vh;
+    width: auto;
+}
+
+.usernameLogin, .passwordLogin, .confirmLogin, .buttonConfirmLogin, .idsLogin{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+
+.inputUsernameLogin, .inputPasswordLogin{
+    color: #778899;
+    border: 0px;
+}
+
+.buttonConfirmLogin{
+    border: 0px;
+    background:  #B0C4DE;
+    padding : 1vh 1vw;
+}
+
+.usernameLoginClass, .passwordLoginClass, .confirmLoginClass{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    padding: 1vh 1vw;
+}
+
+.loginBlocks{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    align-content: center;
+    flex-grow: 1;
+    height: 100vh;
+    width: auto;
+}
+
+.idsLogin{
+    justify-content: center;
+    align-content: center;
+    padding: 2vh;
+}
+
+.loginImg{
+    height: 100vh;
+    width: auto;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}

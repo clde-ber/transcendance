@@ -1,6 +1,6 @@
 /* styles.css */
 
-.contactDiv{
+.subscriptionDiv{
     background: #FFA07A;
     font-family: Arial, Helvetica, sans-serif;
     color: #ffffff;
@@ -14,7 +14,7 @@
     width: auto;
 }
 
-.username, .status, .buttonSave, .contact{
+.usernameSubscribe, .statusSubscribe, .buttonSaveSubscribe, .idsSubscribe{
     font-family: Arial, Helvetica, sans-serif;
     color: #ffffff;
     display: flex;
@@ -25,13 +25,13 @@
     align-items: stretch;
 }
 
-.buttonSave{
+.buttonSaveSubscribe{
     border: 0px;
     background:  #B0C4DE;
     padding : 1vh 1vw;
 }
 
-.usernameClass, .statusClass, .saveClass, .contact{
+.usernameSubscribeClass, .statusSubscribeClass, .saveSubscribeClass{
     font-family: Arial, Helvetica, sans-serif;
     color: #ffffff;
     display: flex;
@@ -43,7 +43,7 @@
     padding: 1vh 1vw;
 }
 
-.inputUsername, .inputStatus{
+.inputUsernameSubscribe, .inputStatusSubscribe{
     color: #778899;
     border: 0px;
 }
@@ -69,7 +69,8 @@
     width: auto;
 }
 
-.contact{
+.idsSubscribe{
     justify-content: center;
     align-content: center;
+    padding: 2vh;
 }

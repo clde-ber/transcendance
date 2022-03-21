@@ -2180,8 +2180,10 @@ exports.Login = {
         console.log("init");
     },
     view() {
-        return (0, mithril_1.default)("h1", { class: "logIn" }, "Log-in"),
-            [(0, mithril_1.default)("div", { class: "username" }, "Username"), (0, mithril_1.default)("div", { class: "password" }, "Password")];
+        return (0, mithril_1.default)("div", { class: "loginBlocks" }, [[(0, mithril_1.default)("div", { class: "loginDiv" }, [(0, mithril_1.default)("h1", { class: "idsLogin" }, "Sign-in"),
+                    [(0, mithril_1.default)("div", { class: "usernameLoginClass" }, [(0, mithril_1.default)("label.label", { class: "usernameLogin" }, "Username"), (0, mithril_1.default)("input.input[placeholder=Username]", { class: "inputUsernameLogin" })]),
+                        (0, mithril_1.default)("div", { class: "passwordLoginClass" }, [(0, mithril_1.default)("label.label", { class: "passwordLogin" }, "Password"), (0, mithril_1.default)("input.input[placeholder=Password]", { class: "inputPasswordLogin" })]),
+                        (0, mithril_1.default)("div", { class: "confirmLoginClass" }, (0, mithril_1.default)("button.button[type=button]", { class: "buttonConfirmLogin" }, "Confirm"))]]), (0, mithril_1.default)("img[src='assets/login.jpg'][alt='login']", { class: "loginImg" })]]);
     }
 };
 
@@ -2196,10 +2198,10 @@ const mithril_1 = __importDefault(require("mithril"));
 var root = document.body;
 exports.Subscription = {
     view() {
-        return (0, mithril_1.default)("div", { class: "subscriptionBlocks" }, [(0, mithril_1.default)("img[src='assets/subscription.jpg'][alt='subscribe']", { class: "subscriptionImg" }), [(0, mithril_1.default)("div", { class: "contactDiv" }, [(0, mithril_1.default)("h1", { class: "contact" }, "Contact"),
-                    [(0, mithril_1.default)("div", { class: "usernameClass" }, [(0, mithril_1.default)("label.label", { class: "username" }, "Username"), (0, mithril_1.default)("input.input[placeholder=Username]", { class: "inputUsername" })]),
-                        (0, mithril_1.default)("div", { class: "statusClass" }, [(0, mithril_1.default)("label.label", { class: "status" }, "Status"), (0, mithril_1.default)("input.input[placeholder=Status]", { class: "inputStatus" })]),
-                        (0, mithril_1.default)("div", { class: "saveClass" }, (0, mithril_1.default)("button.button[type=button]", { class: "buttonSave" }, "Save"))]])]]);
+        return (0, mithril_1.default)("div", { class: "subscriptionBlocks" }, [(0, mithril_1.default)("img[src='assets/subscription.jpg'][alt='subscribe']", { class: "subscriptionImg" }), [(0, mithril_1.default)("div", { class: "subscriptionDiv" }, [(0, mithril_1.default)("h1", { class: "idsSubscribe" }, "Create your account"),
+                    [(0, mithril_1.default)("div", { class: "usernameSubscribeClass" }, [(0, mithril_1.default)("label.label", { class: "usernameSubscribe" }, "Username"), (0, mithril_1.default)("input.input[placeholder=Username]", { class: "inputUsernameSubscribe" })]),
+                        (0, mithril_1.default)("div", { class: "statusSubscribeClass" }, [(0, mithril_1.default)("label.label", { class: "statusSubscribe" }, "Status"), (0, mithril_1.default)("input.input[placeholder=Status]", { class: "inputStatusSubscribe" })]),
+                        (0, mithril_1.default)("div", { class: "saveSubscribeClass" }, (0, mithril_1.default)("button.button[type=button]", { class: "buttonSaveSubscribe" }, "Save"))]])]]);
     }
 };
 console.log("trial2");
