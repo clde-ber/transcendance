@@ -23,11 +23,6 @@
     align-items: stretch;
 }
 
-.inputUsernameLogin, .inputPasswordLogin{
-    color: #778899;
-    border: 0px;
-}
-
 .buttonConfirmLogin{
     border: 0px;
     background:  #B0C4DE;
@@ -44,6 +39,20 @@
     flex-wrap: nowrap;
     align-items: stretch;
     padding: 1vh 1vw;
+}
+
+.inputUsernameLogin, .inputPasswordLogin{
+    color: #778899;
+    border: 0px;
+}
+
+.loginImg{
+    width: auto;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
 }
 
 .loginBlocks{
@@ -64,11 +73,10 @@
     padding: 2vh;
 }
 
-.loginImg{
+.blockLoginImg{
+    display: flex;
+    justify-content: center;
     height: 100vh;
     width: auto;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    border: 0;
+    flex-grow: 1;
 }

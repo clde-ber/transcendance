@@ -10,7 +10,7 @@ const subscription_1 = require("../views/subscription");
 const index_1 = require("../index");
 var root = document.body;
 function routes() {
-    mithril_1.default.route(root, "/hello", {
+    mithril_1.default.route(root, "/splash", {
         "/hello": index_1.Hello,
         "/splash": index_1.Splash,
         "/subscription": subscription_1.Subscription,

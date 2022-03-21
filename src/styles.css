@@ -2,7 +2,7 @@
 
 .blocks{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: stretch;
@@ -35,7 +35,7 @@
 
 .buttons{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: baseline;
@@ -84,10 +84,10 @@
 .image{
     width: auto;
     height: 100vh;
-    overflow: hidden;
     margin: 0;
     padding: 0;
     border: 0;
+    overflow: hidden;
 }
 /* #FFA07A
 #6495ED

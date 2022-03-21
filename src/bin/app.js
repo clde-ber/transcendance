@@ -2149,7 +2149,7 @@ const subscription_1 = require("../views/subscription");
 const index_1 = require("../index");
 var root = document.body;
 function routes() {
-    mithril_1.default.route(root, "/hello", {
+    mithril_1.default.route(root, "/splash", {
         "/hello": index_1.Hello,
         "/splash": index_1.Splash,
         "/subscription": subscription_1.Subscription,
@@ -2183,7 +2183,7 @@ exports.Login = {
         return (0, mithril_1.default)("div", { class: "loginBlocks" }, [[(0, mithril_1.default)("div", { class: "loginDiv" }, [(0, mithril_1.default)("h1", { class: "idsLogin" }, "Sign-in"),
                     [(0, mithril_1.default)("div", { class: "usernameLoginClass" }, [(0, mithril_1.default)("label.label", { class: "usernameLogin" }, "Username"), (0, mithril_1.default)("input.input[placeholder=Username]", { class: "inputUsernameLogin" })]),
                         (0, mithril_1.default)("div", { class: "passwordLoginClass" }, [(0, mithril_1.default)("label.label", { class: "passwordLogin" }, "Password"), (0, mithril_1.default)("input.input[placeholder=Password]", { class: "inputPasswordLogin" })]),
-                        (0, mithril_1.default)("div", { class: "confirmLoginClass" }, (0, mithril_1.default)("button.button[type=button]", { class: "buttonConfirmLogin" }, "Confirm"))]]), (0, mithril_1.default)("img[src='assets/login.jpg'][alt='login']", { class: "loginImg" })]]);
+                        (0, mithril_1.default)("div", { class: "confirmLoginClass" }, (0, mithril_1.default)("button.button[type=button]", { class: "buttonConfirmLogin" }, "Confirm"))]])], (0, mithril_1.default)("div", { class: "loginImg" }, [(0, mithril_1.default)("img[src='assets/login.jpg'][alt='login']", { class: "loginImg" })])]);
     }
 };
 
@@ -2198,7 +2198,8 @@ const mithril_1 = __importDefault(require("mithril"));
 var root = document.body;
 exports.Subscription = {
     view() {
-        return (0, mithril_1.default)("div", { class: "subscriptionBlocks" }, [(0, mithril_1.default)("img[src='assets/subscription.jpg'][alt='subscribe']", { class: "subscriptionImg" }), [(0, mithril_1.default)("div", { class: "subscriptionDiv" }, [(0, mithril_1.default)("h1", { class: "idsSubscribe" }, "Create your account"),
+        return (0, mithril_1.default)("div", { class: "subscriptionBlocks" }, [[(0, mithril_1.default)("div", { class: "BlockSubscriptionImg" }, [(0, mithril_1.default)("img[src='assets/subscription.jpg'][alt='subscribe']", { class: "subscriptionImg" })])],
+            [(0, mithril_1.default)("div", { class: "subscriptionDiv" }, [(0, mithril_1.default)("h1", { class: "idsSubscribe" }, "Create your account"),
                     [(0, mithril_1.default)("div", { class: "usernameSubscribeClass" }, [(0, mithril_1.default)("label.label", { class: "usernameSubscribe" }, "Username"), (0, mithril_1.default)("input.input[placeholder=Username]", { class: "inputUsernameSubscribe" })]),
                         (0, mithril_1.default)("div", { class: "statusSubscribeClass" }, [(0, mithril_1.default)("label.label", { class: "statusSubscribe" }, "Status"), (0, mithril_1.default)("input.input[placeholder=Status]", { class: "inputStatusSubscribe" })]),
                         (0, mithril_1.default)("div", { class: "saveSubscribeClass" }, (0, mithril_1.default)("button.button[type=button]", { class: "buttonSaveSubscribe" }, "Save"))]])]]);

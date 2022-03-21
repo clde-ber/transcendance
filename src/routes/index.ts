@@ -6,7 +6,7 @@ import { Hello, Splash } from '../index'
 var root = document.body
 
 export function routes() {
-    m.route(root, "/hello", {
+    m.route(root, "/splash", {
         "/hello": Hello,
         "/splash": Splash,
         "/subscription": Subscription,
