@@ -316,7 +316,7 @@ module.exports = function($window, mountRedraw) {
 }
 
 }).call(this)}).call(this,require("timers").setImmediate)
-},{"../pathname/assign":6,"../pathname/build":7,"../pathname/compileTemplate":8,"../pathname/parse":9,"../promise/promise":11,"../render/hyperscript":16,"../render/vnode":20,"timers":26}],3:[function(require,module,exports){
+},{"../pathname/assign":6,"../pathname/build":7,"../pathname/compileTemplate":8,"../pathname/parse":9,"../promise/promise":11,"../render/hyperscript":16,"../render/vnode":20,"timers":29}],3:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./render/hyperscript")
@@ -598,7 +598,7 @@ PromisePolyfill.race = function(list) {
 module.exports = PromisePolyfill
 
 }).call(this)}).call(this,require("timers").setImmediate)
-},{"timers":26}],11:[function(require,module,exports){
+},{"timers":29}],11:[function(require,module,exports){
 (function (global){(function (){
 "use strict"
 
@@ -2104,100 +2104,107 @@ module.exports = require("./api/router")(window, mountRedraw)
 
 },{"./api/router":2,"./mount-redraw":5}],24:[function(require,module,exports){
 "use strict";
-// import * as mithril from 'mithril';
-// import m from 'mithril';
-// var root = document.body
-// // Try it out! This is just to
-// // help get things started.
-// // EXAMPLE: component composition
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Splash = exports.Hello = void 0;
 const mithril_1 = __importDefault(require("mithril"));
+const subscription_1 = require("./views/subscription");
+const login_1 = require("./views/login");
+const routes_1 = require("./routes");
 var root = document.body;
-// Try it out! This is just to
-// help get things started.
-// EXAMPLE: component composition
-// class signIn {
-//     view() {
-//         return m("button", `Sign-in`)
-//     }
-// }
-// class join {
-//     view() {
-//         return m("button", `Join`)
-//     }
-// }
-// var Hello = {
-//     view: function() {
-//         return m("div", [
-//             m("h1", {"class":"title"}, "Transcendance"),
-//             m("button", {class: "signIn", type:"button"}, " Sign in "),
-//             m("button", {class: "join", type:"button"}, " Join ")
-//         ])
-//     }
-// }
-var Subscription = {
-    view() {
-        return (0, mithril_1.default)("div", { class: "subscriptionBlocks" }, [(0, mithril_1.default)("img[src='assets/subscription.jpg'][alt='subscribe']", { class: "subscriptionImg" }), [(0, mithril_1.default)("div", { class: "contactDiv" }, [(0, mithril_1.default)("h1", { class: "contact" }, "Contact"),
-                    [(0, mithril_1.default)("div", { class: "firstNameClass" }, [(0, mithril_1.default)("label.label", { class: "firstName" }, "First name"), (0, mithril_1.default)("input.input[placeholder=First name]", { class: "inputFirstName" })]),
-                        (0, mithril_1.default)("div", { class: "lastNameClass" }, [(0, mithril_1.default)("label.label", { class: "lastName" }, "Last name"), (0, mithril_1.default)("input.input[placeholder=Last name]", { class: "inputLastName" })]),
-                        (0, mithril_1.default)("div", { class: "mobileClass" }, [(0, mithril_1.default)("label.label", { class: "mobile" }, "Mobile"), (0, mithril_1.default)("input.input[placeholder=Mobile]", { class: "inputMobile" })]),
-                        (0, mithril_1.default)("div", { class: "mailClass" }, [(0, mithril_1.default)("label.label", { class: "mail" }, "Mail"), (0, mithril_1.default)("input.input[placeholder=Mail]", { class: "inputMail" })]),
-                        (0, mithril_1.default)("div", { class: "addressClass" }, [(0, mithril_1.default)("label.label", { class: "address" }, "Address"), (0, mithril_1.default)("input.input[placeholder=Adress]", { class: "inputAddress" })]),
-                        (0, mithril_1.default)("div", { class: "zipcodeClass" }, [(0, mithril_1.default)("label.label", { class: "zipcode" }, "Zipcode"), (0, mithril_1.default)("input.input[placeholder=Zipcode]", { class: "inputZipcode" })]),
-                        (0, mithril_1.default)("div", { class: "cityClass" }, [(0, mithril_1.default)("label.label", { class: "city" }, "city"), (0, mithril_1.default)("input.input[placeholder=City]", { class: "inputCity" })]),
-                        (0, mithril_1.default)("div", { class: "countryClass" }, [(0, mithril_1.default)("label.label", { class: "country" }, "Country"), (0, mithril_1.default)("input.input[placeholder=Country]", { class: "inputCountry" })]),
-                        (0, mithril_1.default)("div", { class: "saveClass" }, (0, mithril_1.default)("button.button[type=button]", { class: "buttonSave" }, "Save"))]])]]);
-    }
-};
-var Login = {
-    view() {
-        return (0, mithril_1.default)("h1", { class: "logIn" }, "Log-in"),
-            [(0, mithril_1.default)("div", { class: "username" }, "Username"), (0, mithril_1.default)("div", { class: "password" }, "Password")];
-    }
-};
-var Hello = {
+exports.Hello = {
     view() {
         return (0, mithril_1.default)("main", (0, mithril_1.default)("div", { class: "blocks" }, [
             (0, mithril_1.default)("div", { class: "block1" }, [(0, mithril_1.default)("img[src='assets/entry.jpg'][alt='transcendance']", { class: "image" })]),
             (0, mithril_1.default)("div", { class: "block2" }, [(0, mithril_1.default)("h1", { class: "title" }, "Transcendance"), (0, mithril_1.default)("div", { class: "buttons" }, [(0, mithril_1.default)(mithril_1.default.route.Link, { href: "/login", class: "signIn" }, "Sign-in"), (0, mithril_1.default)(mithril_1.default.route.Link, { href: "/subscription", class: "join" }, "Join")])])
         ]));
-        //m("button.button[type=button]", {class: "signIn"}, "Sign-in"),
-        //m("button.button[type=button]", {class: "join"}, "Join"),
     }
 };
-mithril_1.default.mount(root, Hello);
-mithril_1.default.mount(root, Subscription);
-mithril_1.default.mount(root, Login);
-var Splash = {
+exports.Splash = {
     view: function () {
         return (0, mithril_1.default)("a", { href: "#!/hello" }, "Enter!");
     }
 };
-mithril_1.default.route(root, "/splash", {
-    "/splash": Splash,
-    "/hello": Hello,
-});
-mithril_1.default.route(root, "/hello", {
-    "/hello": Hello,
-    "/subscription": Subscription,
-    "/login": Login,
-});
-/*
-var Hello = {
-    view: function() {
-        return m("main", [
-            m("h1", {class: "title"}, "Transcendance"),
-            m("button.sign[type=button]", "Sign-in"),
-            m("button.button[type=button]", "Join")
-        ])
-    }
-}
-*/ 
+mithril_1.default.mount(root, exports.Splash);
+mithril_1.default.mount(root, login_1.Login);
+mithril_1.default.mount(root, exports.Hello);
+mithril_1.default.mount(root, subscription_1.Subscription);
+(0, routes_1.routes)();
+console.log("trial");
+//ajouter mdp
+//page modifier infos utlisateur
 
-},{"mithril":4}],25:[function(require,module,exports){
+},{"./routes":25,"./views/login":26,"./views/subscription":27,"mithril":4}],25:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.routes = void 0;
+const mithril_1 = __importDefault(require("mithril"));
+const login_1 = require("../views/login");
+const subscription_1 = require("../views/subscription");
+const index_1 = require("../index");
+var root = document.body;
+function routes() {
+    mithril_1.default.route(root, "/hello", {
+        "/hello": index_1.Hello,
+        "/splash": index_1.Splash,
+        "/subscription": subscription_1.Subscription,
+        "/login": login_1.Login
+    });
+}
+exports.routes = routes;
+// m.route(root, "/Splash", {
+//     "/splash": Splash,
+//     "/hello": Hello,
+// })
+// m.route(root, "/hello", {
+//     "/login": Login,
+//     "/subscription": Subscription,
+// })
+
+},{"../index":24,"../views/login":26,"../views/subscription":27,"mithril":4}],26:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Login = void 0;
+const mithril_1 = __importDefault(require("mithril"));
+var root = document.body;
+exports.Login = {
+    oninit: () => {
+        console.log("init");
+    },
+    view() {
+        return (0, mithril_1.default)("h1", { class: "logIn" }, "Log-in"),
+            [(0, mithril_1.default)("div", { class: "username" }, "Username"), (0, mithril_1.default)("div", { class: "password" }, "Password")];
+    }
+};
+
+},{"mithril":4}],27:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Subscription = void 0;
+const mithril_1 = __importDefault(require("mithril"));
+var root = document.body;
+exports.Subscription = {
+    view() {
+        return (0, mithril_1.default)("div", { class: "subscriptionBlocks" }, [(0, mithril_1.default)("img[src='assets/subscription.jpg'][alt='subscribe']", { class: "subscriptionImg" }), [(0, mithril_1.default)("div", { class: "contactDiv" }, [(0, mithril_1.default)("h1", { class: "contact" }, "Contact"),
+                    [(0, mithril_1.default)("div", { class: "usernameClass" }, [(0, mithril_1.default)("label.label", { class: "username" }, "Username"), (0, mithril_1.default)("input.input[placeholder=Username]", { class: "inputUsername" })]),
+                        (0, mithril_1.default)("div", { class: "statusClass" }, [(0, mithril_1.default)("label.label", { class: "status" }, "Status"), (0, mithril_1.default)("input.input[placeholder=Status]", { class: "inputStatus" })]),
+                        (0, mithril_1.default)("div", { class: "saveClass" }, (0, mithril_1.default)("button.button[type=button]", { class: "buttonSave" }, "Save"))]])]]);
+    }
+};
+console.log("trial2");
+
+},{"mithril":4}],28:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2383,7 +2390,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],26:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 (function (setImmediate,clearImmediate){(function (){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -2462,4 +2469,4 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this)}).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":25,"timers":26}]},{},[24]);
+},{"process/browser.js":28,"timers":29}]},{},[24]);

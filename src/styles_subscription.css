@@ -14,7 +14,7 @@
     width: auto;
 }
 
-.firstName, .lastName, .mobile, .mail, .address, .zipcode, .city, .country, .buttonSave, .contact{
+.username, .status, .buttonSave, .contact{
     font-family: Arial, Helvetica, sans-serif;
     color: #ffffff;
     display: flex;
@@ -31,7 +31,7 @@
     padding : 1vh 1vw;
 }
 
-.firstNameClass, .lastNameClass, .mobileClass, .mailClass, .addressClass, .zipcodeClass, .cityClass, .countryClass, .saveClass, .contact{
+.usernameClass, .statusClass, .saveClass, .contact{
     font-family: Arial, Helvetica, sans-serif;
     color: #ffffff;
     display: flex;
@@ -43,8 +43,8 @@
     padding: 1vh 1vw;
 }
 
-.inputFirstName, .inputLastName, .inputMobile, .inputMail, .inputAddress, .inputZipcode, .inputCity, .inputCountry{
-    color:#ffffff;
+.inputUsername, .inputStatus{
+    color: #778899;
     border: 0px;
 }
 
