@@ -316,7 +316,7 @@ module.exports = function($window, mountRedraw) {
 }
 
 }).call(this)}).call(this,require("timers").setImmediate)
-},{"../pathname/assign":6,"../pathname/build":7,"../pathname/compileTemplate":8,"../pathname/parse":9,"../promise/promise":11,"../render/hyperscript":16,"../render/vnode":20,"timers":29}],3:[function(require,module,exports){
+},{"../pathname/assign":6,"../pathname/build":7,"../pathname/compileTemplate":8,"../pathname/parse":9,"../promise/promise":11,"../render/hyperscript":16,"../render/vnode":20,"timers":31}],3:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./render/hyperscript")
@@ -598,7 +598,7 @@ PromisePolyfill.race = function(list) {
 module.exports = PromisePolyfill
 
 }).call(this)}).call(this,require("timers").setImmediate)
-},{"timers":29}],11:[function(require,module,exports){
+},{"timers":31}],11:[function(require,module,exports){
 (function (global){(function (){
 "use strict"
 
@@ -2135,8 +2135,77 @@ mithril_1.default.mount(root, subscription_1.Subscription);
 console.log("trial");
 //ajouter mdp
 //page modifier infos utlisateur
+//mithril js - simple application
 
-},{"./routes":25,"./views/login":26,"./views/subscription":27,"mithril":4}],25:[function(require,module,exports){
+},{"./routes":27,"./views/login":28,"./views/subscription":29,"mithril":4}],25:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userProfile = void 0;
+const user_1 = require("../requests/user");
+exports.userProfile = {
+    token: 0,
+    is_valid: true,
+    username: "",
+    avatar: "",
+    status: "",
+    ladder: 0,
+    is_friend: false,
+    is_blocked: false,
+    matches: { first: "", second: "", third: "" },
+    is_self: true,
+    onload: (token, username) => {
+        return (0, user_1.getProfileInfo)(token, username)
+            .then((result) => {
+            var _a, _b, _c, _d, _e, _f;
+            if (result) {
+                exports.userProfile.token = token;
+                exports.userProfile.is_valid = (typeof result.is_valid == 'boolean') ? result.is_valid : true;
+                exports.userProfile.username = username;
+                exports.userProfile.avatar = (result.avatar) ? result.avatar : "";
+                exports.userProfile.status = result.status;
+                exports.userProfile.ladder = (result.ladder) ? result.ladder : 0;
+                exports.userProfile.is_friend = (result.is_friend) ? result.is_friend : false;
+                exports.userProfile.is_blocked = (result.is_blocked) ? result.is_blocked : false;
+                exports.userProfile.matches = { first: ((_a = result.matches) === null || _a === void 0 ? void 0 : _a.first) ? (_b = result.matches) === null || _b === void 0 ? void 0 : _b.first : "", second: ((_c = result.matches) === null || _c === void 0 ? void 0 : _c.second) ? (_d = result.matches) === null || _d === void 0 ? void 0 : _d.second : "", third: ((_e = result.matches) === null || _e === void 0 ? void 0 : _e.third) ? (_f = result.matches) === null || _f === void 0 ? void 0 : _f.third : "" };
+                exports.userProfile.is_self = result.is_self;
+            }
+        })
+            .catch(function (e) {
+            console.log(e.message);
+        });
+    }
+};
+
+},{"../requests/user":26}],26:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.postProfileInfo = exports.getProfileInfo = void 0;
+const mithril_1 = __importDefault(require("mithril"));
+const getProfileInfo = (token, username) => {
+    const params = {
+        method: "Get",
+        url: "http://localhost:3000/profile/:user",
+        responseType: "json",
+        params: { token, username },
+    };
+    return mithril_1.default.request(params);
+};
+exports.getProfileInfo = getProfileInfo;
+const postProfileInfo = (user) => {
+    const params = {
+        method: "Post",
+        url: "http://localhost:3000/profile/",
+        responseType: "json",
+        body: { user },
+    };
+    return mithril_1.default.request(params);
+};
+exports.postProfileInfo = postProfileInfo;
+
+},{"mithril":4}],27:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -2166,7 +2235,7 @@ exports.routes = routes;
 //     "/subscription": Subscription,
 // })
 
-},{"../index":24,"../views/login":26,"../views/subscription":27,"mithril":4}],26:[function(require,module,exports){
+},{"../index":24,"../views/login":28,"../views/subscription":29,"mithril":4}],28:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -2187,7 +2256,7 @@ exports.Login = {
     }
 };
 
-},{"mithril":4}],27:[function(require,module,exports){
+},{"mithril":4}],29:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -2195,19 +2264,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Subscription = void 0;
 const mithril_1 = __importDefault(require("mithril"));
+const userProfile_1 = require("../models/userProfile");
 var root = document.body;
 exports.Subscription = {
+    oninit: function (vnode) { userProfile_1.userProfile.onload(vnode.attrs.token, vnode.attrs.username); },
+    controller() {
+    },
     view() {
         return (0, mithril_1.default)("div", { class: "subscriptionBlocks" }, [[(0, mithril_1.default)("div", { class: "BlockSubscriptionImg" }, [(0, mithril_1.default)("img[src='assets/subscription.jpg'][alt='subscribe']", { class: "subscriptionImg" })])],
             [(0, mithril_1.default)("div", { class: "subscriptionDiv" }, [(0, mithril_1.default)("h1", { class: "idsSubscribe" }, "Create your account"),
-                    [(0, mithril_1.default)("div", { class: "usernameSubscribeClass" }, [(0, mithril_1.default)("label.label", { class: "usernameSubscribe" }, "Username"), (0, mithril_1.default)("input.input[placeholder=Username]", { class: "inputUsernameSubscribe" })]),
-                        (0, mithril_1.default)("div", { class: "statusSubscribeClass" }, [(0, mithril_1.default)("label.label", { class: "statusSubscribe" }, "Status"), (0, mithril_1.default)("input.input[placeholder=Status]", { class: "inputStatusSubscribe" })]),
-                        (0, mithril_1.default)("div", { class: "saveSubscribeClass" }, (0, mithril_1.default)("button.button[type=button]", { class: "buttonSaveSubscribe" }, "Save"))]])]]);
+                    [(0, mithril_1.default)("div", { class: "usernameSubscribeClass" }, [(0, mithril_1.default)("label.label", { class: "usernameSubscribe" }, "Username"), (0, mithril_1.default)("input.input[placeholder=Username]", { value: userProfile_1.userProfile.username, class: "inputUsernameSubscribe" })]),
+                        (0, mithril_1.default)("div", { class: "statusSubscribeClass" }, [(0, mithril_1.default)("label.label", { class: "statusSubscribe" }, "Status"), (0, mithril_1.default)("input.input[placeholder=Status]", { value: userProfile_1.userProfile.status, class: "inputStatusSubscribe" })]),
+                        (0, mithril_1.default)("div", { class: "saveSubscribeClass" }, (0, mithril_1.default)("button.button[type=button]", { class: "buttonSaveSubscribe", onclick: userProfile_1.userProfile }, "Save"))]])]]);
     }
 };
 console.log("trial2");
 
-},{"mithril":4}],28:[function(require,module,exports){
+},{"../models/userProfile":25,"mithril":4}],30:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2393,7 +2466,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],29:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 (function (setImmediate,clearImmediate){(function (){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -2472,4 +2545,4 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this)}).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":28,"timers":29}]},{},[24]);
+},{"process/browser.js":30,"timers":31}]},{},[24]);

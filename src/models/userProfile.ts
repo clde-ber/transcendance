@@ -16,7 +16,7 @@ export let userProfile = {
     is_self: true,
     onload: (token: number, username: string) => {
         return getProfileInfo(token, username)
-        .then((result: profile_info | unknown) => {
+        .then((result: any) => {
             if (result) {
                 userProfile.token = token;
                 userProfile.is_valid = (typeof result.is_valid == 'boolean') ? result.is_valid : true;

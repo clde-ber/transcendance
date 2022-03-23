@@ -4,7 +4,7 @@ import { userProfile } from '../models/userProfile';
 var root = document.body
 
 export let Subscription = {
-    oninit: function(vnode: any) {userProfile.onload(vnode.attrs.username)},
+    oninit: function(vnode: any) {userProfile.onload(vnode.attrs.token, vnode.attrs.username)},
     controller() {
         
     },
@@ -13,7 +13,7 @@ export let Subscription = {
             [m("div", {class: "subscriptionDiv"}, [m("h1", {class: "idsSubscribe"}, "Create your account"),
             [m("div", {class: "usernameSubscribeClass"}, [m("label.label", {class: "usernameSubscribe"}, "Username"), m("input.input[placeholder=Username]", {value: userProfile.username, class: "inputUsernameSubscribe"})]),
             m("div", {class: "statusSubscribeClass"}, [m("label.label", {class: "statusSubscribe"}, "Status"), m("input.input[placeholder=Status]", {value: userProfile.status, class: "inputStatusSubscribe"})]),
-            m("div", {class: "saveSubscribeClass"}, m("button.button[type=button]", {class: "buttonSaveSubscribe", onclick: }, "Save"))]])]])
+            m("div", {class: "saveSubscribeClass"}, m("button.button[type=button]", {class: "buttonSaveSubscribe", onclick: userProfile}, "Save"))]])]])
     }
 }
 

@@ -30,3 +30,4 @@ mithril_1.default.mount(root, subscription_1.Subscription);
 console.log("trial");
 //ajouter mdp
 //page modifier infos utlisateur
+//mithril js - simple application

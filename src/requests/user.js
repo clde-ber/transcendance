@@ -5,12 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postProfileInfo = exports.getProfileInfo = void 0;
 const mithril_1 = __importDefault(require("mithril"));
-const getProfileInfo = (username) => {
+const getProfileInfo = (token, username) => {
     const params = {
         method: "Get",
         url: "http://localhost:3000/profile/:user",
         responseType: "json",
-        params: { username },
+        params: { token, username },
     };
     return mithril_1.default.request(params);
 };
