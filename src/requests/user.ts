@@ -3,12 +3,12 @@ import m, { request } from 'mithril';
 import { last_matches, profile_info } from '../types/profileInfo'
 import { RequestParams } from '../types/requests';
 
-export const getProfileInfo = (username: string) => {
+export const getProfileInfo = (token: number, username: string) => {
     const params: RequestParams = {
         method: "Get",
         url: "http://localhost:3000/profile/:user",
         responseType:"json",
-        params: {username},
+        params: {token, username},
     }
     return m.request(params)
 }

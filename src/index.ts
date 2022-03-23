@@ -31,3 +31,4 @@ routes();
 console.log("trial")
 //ajouter mdp
 //page modifier infos utlisateur
+//mithril js - simple application

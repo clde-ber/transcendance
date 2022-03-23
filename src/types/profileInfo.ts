@@ -5,12 +5,14 @@ export type last_matches = {
 }
 
 export type profile_info = {
-    is_valid?: boolean;
+    token: number;
+    is_valid: boolean;
     username: string;
-    avatar?: string;
+    avatar: string;
     status: string;
-    ladder?: number;
-    is_friend?: boolean;
-    is_blocked?: boolean;
-    matches?: last_matches;
+    ladder: number;
+    is_friend: boolean;
+    is_blocked: boolean;
+    matches: last_matches;
+    is_self: true;
   }
