@@ -5,7 +5,7 @@ export type last_matches = {
 }
 
 export type profile_info = {
-    token?: number;
+    token: number;
     is_valid: boolean;
     username: string;
     avatar: string;

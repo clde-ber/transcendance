@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "bootstrap": "^5.1.3",
-    "mithril": "^2.0.4"
+    "jquery": "^3.6.0",
+    "mithril": "^2.0.4",
+    "popper": "^1.0.1"
   },
   "devDependencies": {
     "@types/mithril": "^2.0.9",
@@ -9,6 +11,6 @@
     "webpack-cli": "^4.9.2"
   },
   "scripts": {
-    "start": "cd src && tsc -p ../tsconfig.json && cd ../ && browserify src/index.js -o src/bin/app.js"
+    "start": "cd src && sass navbar.scss navbar.css && tsc -p ../tsconfig.json && cd ../ && browserify src/index.js -o src/bin/app.js"
   }
 }

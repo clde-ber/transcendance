@@ -8,6 +8,7 @@ const mithril_1 = __importDefault(require("mithril"));
 const subscription_1 = require("./views/subscription");
 const login_1 = require("./views/login");
 const routes_1 = require("./routes");
+require("bootstrap");
 var root = document.body;
 exports.Hello = {
     view() {

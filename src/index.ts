@@ -3,6 +3,7 @@ import m from 'mithril';
 import { Subscription } from './views/subscription';
 import { Login } from './views/login';
 import { routes } from './routes';
+import 'bootstrap';
 
 var root = document.body
 
